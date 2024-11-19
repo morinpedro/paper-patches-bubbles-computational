@@ -2,17 +2,19 @@
 %\usepackage{t1enc}
 
 \usepackage[T1]{fontenc}
-% \renewcommand{\familydefault}{\sfdefault}%change letter 
+% \renewcommand{\familydefault}{\sfdefault}%change letter
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts,mathtools,amssymb}
 \usepackage{graphicx,wrapfig,tikz,animate,subcaption}
 \usepackage{lmodern}
 \usepackage{fancyhdr,graphicx,wrapfig,amsmath,amssymb, mathtools, scrextend, titlesec, enumitem}
-% \usepackage{hyperref,caption,subcaption,comment,cancel}
+\usepackage{hyperref}
+\usepackage{caption}
+% \usepackage{subcaption}
+\usepackage{comment}
+\usepackage{cancel}
+
 \usetikzlibrary{arrows}
-
-
-
 
 \pagestyle{plain}
 % \setlength{\topmargin}{-2cm}
@@ -47,11 +49,12 @@
 \date{}
 
 \begin{document}
-	
+
 	\maketitle
 
 
-% Cylinder ------------ ------------- -----------
+\tableofcontents
+
 
 \section{Introduction}
 
@@ -63,7 +66,7 @@ We consider the following advection dominated advection-diffusion problem:
 \begin{equation*}
     \left\{
 \begin{aligned}
-    - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad &\text{in $\Omega$,}\\   
+    - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad &\text{in $\Omega$,}\\
         u|_{\partial\Omega} &= 0.\\
 \end{aligned}
     \right.
@@ -93,7 +96,7 @@ We now consider the instationary advection dominated advection-diffusion problem
 \begin{equation*}
     \left\{
 \begin{aligned}
-    u_t - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\   
+    u_t - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\
         u|_{\partial\Omega} &= 0, \qquad& & t>0,\\
     u(\cdot,0) &= u^0, \qquad& & \text{in }\Omega.\\
 \end{aligned}
