@@ -1,0 +1,117 @@
+\documentclass[11pt,a4paper]{article}
+%\usepackage{t1enc}
+
+\usepackage[T1]{fontenc}
+% \renewcommand{\familydefault}{\sfdefault}%change letter 
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,mathtools,amssymb}
+\usepackage{graphicx,wrapfig,tikz,animate,subcaption}
+\usepackage{lmodern}
+\usepackage{fancyhdr,graphicx,wrapfig,amsmath,amssymb, mathtools, scrextend, titlesec, enumitem}
+% \usepackage{hyperref,caption,subcaption,comment,cancel}
+\usetikzlibrary{arrows}
+
+
+
+
+\pagestyle{plain}
+% \setlength{\topmargin}{-2cm}
+% \setlength{\textheight}{25cm}
+% \setlength{\textwidth}{16cm}
+% \setlength{\oddsidemargin}{-0.5cm}
+% \setlength{\evensidemargin}{-1.5cm}
+% \setlength{\parskip}{2mm}
+
+\usepackage{todonotes}
+
+\usepackage{wrapfig,tikz}
+\usetikzlibrary{shapes.misc}
+% Entornos
+\newtheorem{thm}{Teorema}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{propo}[thm]{Proposition}
+\newtheorem{obs}[thm]{Remark}
+\newtheorem{rem}[thm]{Remark}
+%Genericas
+\newcommand{\NN}{\ensuremath{\mathbb{N}}\hspace{0 cm}}
+\newcommand{\RR}{\ensuremath{\mathbb{R}}\hspace{0 cm}}
+\newcommand{\Q}{\ensuremath{\mathcal{Q}}\hspace{0 cm}}
+\newcommand{\aaa}{\ensuremath{\mathbf{a}}\hspace{0 cm}}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+
+\title{Patch bubbles for convection-dominated problems}
+\author{Eberhard B\"ansch \and Pedro Morin \and Itatí Zócola}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+
+
+% Cylinder ------------ ------------- -----------
+
+\section{Introduction}
+
+\todo[inline]{last but not least 1}
+
+\section{Residual Free Bubbles for Stationary Problems}
+
+We consider the following advection dominated advection-diffusion problem:
+\begin{equation*}
+    \left\{
+\begin{aligned}
+    - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad &\text{in $\Omega$,}\\   
+        u|_{\partial\Omega} &= 0.\\
+\end{aligned}
+    \right.
+\end{equation*}
+
+
+\subsection{Element Bubbles}
+
+\todo[inline]{Describe the usual element bubbles~\cite{Brezzi1999}, and the fact that for the computation only their integral is necessary. Say also that the numerical results do not look so satisfactory to us.}
+
+\subsection{Patch Bubbles}
+
+\todo[inline]{In order to add more \emph{freedom} to the space, we incorporate \emph{patch bubbles}. Start with our proposal, and mention also Cangiani-Süli's.
+Emphasize that the computation with these bubbles leads to the necessity of computing them with more resolution than with the element bubbles. Therefore we propose to use recursion.}
+
+\subsection{Bubble Computation}
+
+\todo[inline]{Present the recursive algorithm}
+
+\subsection{Numerical Experiments}
+
+\todo[inline]{Comparison between usual element bubbles and patch bubbles. Two or three experiments}
+
+\section{Instationary Problems}
+
+We now consider the instationary advection dominated advection-diffusion problem
+\begin{equation*}
+    \left\{
+\begin{aligned}
+    u_t - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\   
+        u|_{\partial\Omega} &= 0, \qquad& & t>0,\\
+    u(\cdot,0) &= u^0, \qquad& & \text{in }\Omega.\\
+\end{aligned}
+    \right.
+\end{equation*}
+
+\subsection{New method}
+
+\todo[inline]{Emphasize on the simplicity of keeping the information from the bubbles, against the computation of the static condensation, which also leads to a very stable and precise method.}
+
+\subsection{Numerical Experiments}
+
+\todo[inline]{Comparison between usual element bubbles and patch bubbles. Two or three experiments}
+
+\section{Conclusions}
+
+\todo[inline]{last but not least 2}
+
+\bibliographystyle{abbrv}
+\bibliography{biblioRFB}
+\end{document}
