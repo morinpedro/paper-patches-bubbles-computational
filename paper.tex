@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass{article}
 %\usepackage{t1enc}
 
 \usepackage[T1]{fontenc}
@@ -24,7 +24,8 @@
 % \setlength{\evensidemargin}{-1.5cm}
 % \setlength{\parskip}{2mm}
 
-\usepackage{todonotes}
+\definecolor{verylightgray}{gray}{0.93}
+\usepackage[color=verylightgray]{todonotes}
 
 \usepackage{wrapfig,tikz}
 \usetikzlibrary{shapes.misc}
@@ -36,11 +37,16 @@
 \newtheorem{propo}[thm]{Proposition}
 \newtheorem{obs}[thm]{Remark}
 \newtheorem{rem}[thm]{Remark}
+\usepackage{xspace}
 %Genericas
-\newcommand{\NN}{\ensuremath{\mathbb{N}}\hspace{0 cm}}
-\newcommand{\RR}{\ensuremath{\mathbb{R}}\hspace{0 cm}}
-\newcommand{\Q}{\ensuremath{\mathcal{Q}}\hspace{0 cm}}
-\newcommand{\aaa}{\ensuremath{\mathbf{a}}\hspace{0 cm}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}\xspace}
+\newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\Q}{\ensuremath{\mathcal{Q}}\xspace}
+\newcommand{\T}{\ensuremath{\mathcal{T}}\xspace}
+\newcommand{\aaa}{\ensuremath{\mathbf{a}}\xspace}
+\DeclareMathOperator{\Div}{div}
+\newcommand{\tfa}{\text{for all }}
+\newcommand{\Hoi}[1][\Omega]{\ensuremath{H_0^1(#1)}\xspace}
 
 \renewcommand{\theenumi}{\arabic{enumi}}
 
@@ -57,23 +63,63 @@
 
 
 \section{Introduction}
+In this article we consider the following advection dominated advection-reaction-diffusion problem, in a domain $\Omega$ of $\R^d$, with $d\in\{2,3\}$:
+\begin{equation*}
+    \left\{
+\begin{aligned}
+    u_t - \epsilon \Delta u + \aaa\cdot \nabla u + c \, u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\
+        u &= 0, \qquad& &\text{on $\partial\Omega$}, t>0,\\
+    u(\cdot,0) &= u^0, \qquad& & \text{in }\Omega.\\
+\end{aligned}
+    \right.
+\end{equation*}
+Here
+$f\in L^2(\Omega)$,
+$u_0 \in L^2(\Omega)$, 
+$\aaa \in W^{1,\infty}(\Omega)$ and $c\in L^\infty(\Omega)$, with 
+$c-\frac12 \Div \aaa \le 0$.
+
 
 \todo[inline]{last but not least 1}
 
 \section{Residual Free Bubbles for Stationary Problems}
 
-We consider the following advection dominated advection-diffusion problem:
-\begin{equation*}
-    \left\{
-\begin{aligned}
-    - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad &\text{in $\Omega$,}\\
-        u|_{\partial\Omega} &= 0.\\
-\end{aligned}
-    \right.
-\end{equation*}
+\todo[inline]{A couple of paragraphs about partitions and finite element spaces}
+
+\todo[inline]{Some historical comments.}
 
 
 \subsection{Element Bubbles}
+
+
+In this section we recall some ideas from the paper~\cite{Brezzi1999}%
+\todo{Ita, please check in~\cite{Brezzi1999} in which paper the residual free bubbles were first introduced. Is it paper [1] from this reference?}.
+
+They considered the following advection-diffusion problem:
+\begin{equation}\label{eq:convdiff-stat-strong}
+    \left\{
+\begin{aligned}
+    - \epsilon \Delta u + \aaa\cdot \nabla u &=f ,\qquad& &\text{in $\Omega$,}\\
+        u &= 0, \qquad& &\text{on $\partial\Omega$}, 
+\end{aligned}
+    \right.
+\end{equation}
+with constant $\aaa$ and $f$.
+The associated bilinear form is
+\[
+a(\psi,\varphi) = \int_\Omega \epsilon \nabla \psi \cdot \nabla \varphi + c \psi \varphi.
+\]
+And the weak formulation of~\eqref{eq:convdiff-stat-strong} reads
+\[
+\text{Find } u \in \Hoi : \qquad a(u,\varphi) = (f,\varphi), \quad\tfa \varphi \in \Hoi,
+\]
+where $(f,\varphi)=\int_\Omega f\varphi$, as usual.
+
+Then, for each element $T\in \T$ they consider the \emph{residual-free bubble} $b_T$ defined as follows:
+\[
+b_T\in \Hoi[T]:\qquad a(b_T,\varphi)=(1,\varphi), \quad \tfa \varphi\in \Hoi[T].
+\]
+
 
 \todo[inline]{Describe the usual element bubbles~\cite{Brezzi1999}, and the fact that for the computation only their integral is necessary. Say also that the numerical results do not look so satisfactory to us.}
 
@@ -96,8 +142,8 @@ We now consider the instationary advection dominated advection-diffusion problem
 \begin{equation*}
     \left\{
 \begin{aligned}
-    u_t - \epsilon \Delta u + \aaa\cdot \nabla u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\
-        u|_{\partial\Omega} &= 0, \qquad& & t>0,\\
+    u_t - \epsilon \Delta u + \aaa\cdot \nabla u + c \, u &=0 ,\qquad& &\text{in $\Omega$, $t>0$,}\\
+        u &= 0, \qquad& &\text{on $\partial\Omega$}, t>0,\\
     u(\cdot,0) &= u^0, \qquad& & \text{in }\Omega.\\
 \end{aligned}
     \right.
