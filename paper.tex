@@ -44,10 +44,13 @@
 \newcommand{\Q}{\ensuremath{\mathcal{Q}}\xspace}
 \newcommand{\T}{\ensuremath{\mathcal{T}}\xspace}
 \newcommand{\aaa}{\ensuremath{\mathbf{a}}\xspace}
+\newcommand{\nnn}{\ensuremath{\mathbf{n}}\xspace}
 \DeclareMathOperator{\Div}{div}
 \newcommand{\tfa}{\text{for all }}
+\newcommand{\tand}{\quad\text{and}\quad}
 \newcommand{\Hoi}[1][\Omega]{\ensuremath{H_0^1(#1)}\xspace}
-
+\newcommand{\bT}{\ensuremath{b_1^T}}
+\newcommand{\tbT}{\ensuremath{\tilde b_1^T}}
 \renewcommand{\theenumi}{\arabic{enumi}}
 
 \title{Patch bubbles for convection-dominated problems}
@@ -95,6 +98,7 @@ $c-\frac12 \Div \aaa \le 0$.
 In this section we recall some ideas from the paper~\cite{Brezzi1999}%
 \todo{Ita, please check in~\cite{Brezzi1999} in which paper the residual free bubbles were first introduced. Is it paper [1] from this reference?}.
 
+In what follows we use the notation from~\cite{Brezzi1999}.
 They considered the following advection-diffusion problem:
 \begin{equation}\label{eq:convdiff-stat-strong}
     \left\{
@@ -104,21 +108,55 @@ They considered the following advection-diffusion problem:
 \end{aligned}
     \right.
 \end{equation}
-with constant $\aaa$ and $f$.
+with (piecewise) constant $\aaa$ and $f$.
 The associated bilinear form is
 \[
-a(\psi,\varphi) = \int_\Omega \epsilon \nabla \psi \cdot \nabla \varphi + c \psi \varphi.
+a(\psi,\varphi) = \int_\Omega \epsilon \nabla \psi \cdot \nabla \varphi + \aaa \cdot \nabla \psi \, \varphi.
 \]
 And the weak formulation of~\eqref{eq:convdiff-stat-strong} reads
 \[
-\text{Find } u \in \Hoi : \qquad a(u,\varphi) = (f,\varphi), \quad\tfa \varphi \in \Hoi,
+\text{Find } u \in \Hoi : \qquad a(u,\varphi) = (1,\varphi), \quad\tfa \varphi \in \Hoi,
 \]
 where $(f,\varphi)=\int_\Omega f\varphi$, as usual.
 
-Then, for each element $T\in \T$ they consider the \emph{residual-free bubble} $b_T$ defined as follows:
+For a triangulation of simplices $\T$, and for each element $T\in \T$ they consider the \emph{residual-free bubble} $\bT$ defined as follows:
 \[
-b_T\in \Hoi[T]:\qquad a(b_T,\varphi)=(1,\varphi), \quad \tfa \varphi\in \Hoi[T].
+\bT\in \Hoi[T]:\qquad a(\bT,\varphi)=(1,\varphi), \quad \tfa \varphi\in \Hoi[T].
 \]
+Whence, integration by parts leads to
+\begin{equation}\label{eq:bT-identity-1}
+\epsilon \| \nabla \bT \|_{0,T}^2  = \int_T \bT,
+\end{equation}
+and, for every affine function $\varphi$,
+\begin{equation}\label{eq:bT-identity-2}
+\int_T -\epsilon \nabla\bT \cdot\nabla \varphi = 0
+\tand
+\int_T \aaa \cdot \nabla \bT \, \varphi = - \int_T \aaa \cdot \nabla \varphi \, \bT
+= -\aaa\cdot\nabla \varphi\int_T \bT.
+\end{equation}
+
+Then, for every $T\in\T$, they consider the one-dimensional space $B_T$ spanned by \bT and set 
+\[
+V_B = \bigoplus_{T\in\T}B_T
+\tand
+V_h = V_L + V_B.
+\]
+The discrete problem now reads
+\[
+\text{Find } u_h = u_L + u_B \in V_h:\qquad
+a(u_h,v_h) = (f,v_h),\tfa v_h \in V_h.
+\]
+After testing separately for $v_h \in V_B$ and $v_h \in V_L$ they perform a static condensation and arrive at a linear system of equations for $u_L$, which is what practitioners are usually interested in.
+In this respect, the use of bubbles can be regarded as a \emph{stabilization method} for the finite element solution $u_L$, and coincides with the famous SUPG method~\cite{BFHR1997}, with a precise definition of the stabilization constants.
+
+Moreover, due to~\eqref{eq:bT-identity-1}--\eqref{eq:bT-identity-2}, the stabilization only requires the computation of $\int_T \bT$ and no other features of $\bT$.
+When $\epsilon \ll h/|\aaa|$, this integral can be very well approximated by the integral of $\tbT$, which is the solution of the purely transport problem
+\[
+\aaa\cdot \nabla \tbT = 1, \ \text{in $T$}, 
+\qquad
+\bT = 0, \ \text{on $\partial_+ T$},
+\]
+with $\partial_+ T$ the \emph{inflow} part of $\partial T$ (where $\aaa \dot \nnn\le 0$).
 
 
 \todo[inline]{Describe the usual element bubbles~\cite{Brezzi1999}, and the fact that for the computation only their integral is necessary. Say also that the numerical results do not look so satisfactory to us.}
